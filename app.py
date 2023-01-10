@@ -12,6 +12,7 @@ class Window(QWidget):
  
         label = QLabel(self)
         pixmap = QPixmap('./static/images/train.png')
+        pixmap = pixmap.scaled(300, 300)
         label.setPixmap(pixmap)
  
  
