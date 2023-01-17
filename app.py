@@ -4,12 +4,10 @@ from PyQt6.QtGui import QPixmap, QIcon
 from PyQt6.QtCore import Qt, QPropertyAnimation, QPoint
 
 
-position = 100
-
 class Window(QWidget):
     def __init__(self):
         super().__init__()
-
+        self.position = [100]
         self.resize(900, 850)
         self.setWindowTitle("TgoesWrum")
         self.setWindowIcon(QIcon('./static/images/train.png'))
@@ -18,7 +16,7 @@ class Window(QWidget):
         pixmap = QPixmap('./static/images/train.png')
         pixmap = pixmap.scaled(300, 300)
         self.label.setPixmap(pixmap)
-        self.label.move(position, 200)
+        self.label.move(self.position[0], 200)
         
         self.right_button()
         self.left_button()
@@ -34,16 +32,24 @@ class Window(QWidget):
         button.clicked.connect(self.go_left)
 
     def go_right(self):
+        self.change_right(self.position)
         self.anim = QPropertyAnimation(self.label, b"pos")
-        self.anim.setEndValue(QPoint(400, 200))
-        self.anim.setDuration(1500)
+        self.anim.setEndValue(QPoint(self.position[0], 200))
+        self.anim.setDuration(150)
         self.anim.start()
 
     def go_left(self):
+        self.change_left(self.position)
         self.anim = QPropertyAnimation(self.label, b"pos")
-        self.anim.setEndValue(QPoint(100, 200))
-        self.anim.setDuration(1500)
+        self.anim.setEndValue(QPoint(self.position[0], 200))
+        self.anim.setDuration(150)
         self.anim.start()
+
+    def change_right(self, var):
+        var[0] = var[0] + 30
+
+    def change_left(self, var):
+        var[0] = var[0] - 30
         
 
 app = QApplication(sys.argv)
