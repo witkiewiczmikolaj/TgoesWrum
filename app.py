@@ -1,16 +1,14 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QPushButton, QVBoxLayout
 from PyQt6.QtGui import QPixmap, QIcon
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QPropertyAnimation, QPoint
 
-global position
+
 position = 100
 
 class Window(QWidget):
     def __init__(self):
         super().__init__()
-
-        
 
         self.resize(900, 850)
         self.setWindowTitle("TgoesWrum")
@@ -36,10 +34,16 @@ class Window(QWidget):
         button.clicked.connect(self.go_left)
 
     def go_right(self):
-        self.label.move(position + 30, 200)
+        self.anim = QPropertyAnimation(self.label, b"pos")
+        self.anim.setEndValue(QPoint(400, 200))
+        self.anim.setDuration(1500)
+        self.anim.start()
 
     def go_left(self):
-        self.label.move(position - 30, 200)
+        self.anim = QPropertyAnimation(self.label, b"pos")
+        self.anim.setEndValue(QPoint(100, 200))
+        self.anim.setDuration(1500)
+        self.anim.start()
         
 
 app = QApplication(sys.argv)
