@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QPushButton, QVBoxLayout
 from PyQt6.QtGui import QPixmap, QIcon
-from PyQt6.QtCore import Qt, QPropertyAnimation, QPoint
+from PyQt6.QtCore import Qt, QPropertyAnimation, QPoint, QTimer
 
 
 class Window(QWidget):
@@ -20,17 +20,22 @@ class Window(QWidget):
         
         self.right_button()
         self.left_button()
-        
+        self.go_button()
+
+    def go_button(self):
+        self.button = QPushButton("GO!", self)
+        self.button.move(300, 100)
+        self.button.clicked.connect(self.execute)
 
     def right_button(self):
-        button = QPushButton("Right", self)
-        button.move(200, 100)
-        button.clicked.connect(self.go_right)
+        self.rbutton = QPushButton("Right", self)
+        self.rbutton.setCheckable(True)
+        self.rbutton.move(200, 100)
 
     def left_button(self):
-        button = QPushButton("Left", self)
-        button.move(100, 100)
-        button.clicked.connect(self.go_left)
+        self.lbutton = QPushButton("Left", self)
+        self.lbutton.setCheckable(True)
+        self.lbutton.move(100, 100)
 
     def go_right(self):
         self.change_right(self.position)
@@ -61,6 +66,15 @@ class Window(QWidget):
 
     def change_limit_left(self, var):
         var[0] = 100
+
+    def execute(self):
+        if self.rbutton.isChecked() and not self.lbutton.isChecked():
+            self.go_right()
+        elif self.lbutton.isChecked() and not self.rbutton.isChecked():
+            self.go_left()
+        elif self.rbutton.isChecked() and self.lbutton.isChecked():
+            pass
+    
         
 
 app = QApplication(sys.argv)
