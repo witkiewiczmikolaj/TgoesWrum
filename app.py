@@ -20,15 +20,16 @@ class Window(QWidget):
         
         self.right_button()
         self.left_button()
-  
+        
+
     def right_button(self):
         button = QPushButton("Right", self)
-        button.move(100, 100)
+        button.move(200, 100)
         button.clicked.connect(self.go_right)
 
     def left_button(self):
         button = QPushButton("Left", self)
-        button.move(200, 100)
+        button.move(100, 100)
         button.clicked.connect(self.go_left)
 
     def go_right(self):
@@ -37,6 +38,8 @@ class Window(QWidget):
         self.anim.setEndValue(QPoint(self.position[0], 200))
         self.anim.setDuration(150)
         self.anim.start()
+        if self.position[0] > 400:
+            self.change_limit_right(self.position)
 
     def go_left(self):
         self.change_left(self.position)
@@ -44,12 +47,20 @@ class Window(QWidget):
         self.anim.setEndValue(QPoint(self.position[0], 200))
         self.anim.setDuration(150)
         self.anim.start()
+        if self.position[0] < 100:
+            self.change_limit_left(self.position)
 
     def change_right(self, var):
-        var[0] = var[0] + 30
+        var[0] = var[0] + 10
 
     def change_left(self, var):
-        var[0] = var[0] - 30
+        var[0] = var[0] - 10
+
+    def change_limit_right(self, var):
+        var[0] = 400
+
+    def change_limit_left(self, var):
+        var[0] = 100
         
 
 app = QApplication(sys.argv)
