@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QPushButton, QVBoxLayout
-from PyQt6.QtGui import QPixmap, QIcon
+from PyQt6.QtGui import QPixmap, QIcon, QPainter
 from PyQt6.QtCore import Qt, QPropertyAnimation, QPoint, QTimer
 
 
@@ -21,6 +21,15 @@ class Window(QWidget):
         self.right_button()
         self.left_button()
         self.go_button()
+        self.draw_floor()
+        
+
+    def draw_floor(self):
+        self.floor = QWidget(self)
+        self.floor.setStyleSheet("background-color:black;border-radius:15px;")
+        self.floor.resize(700, 5)
+        self.floor.move(100, 500)
+
 
     def go_button(self):
         self.button = QPushButton("GO!", self)
