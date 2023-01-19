@@ -22,16 +22,19 @@ class Window(QWidget):
         self.left_button()
         self.go_button()
         self.draw_floor()
-        self.draw_sensor(100)
-        self.draw_sensor(320)
-        self.draw_sensor(540)
-        self.draw_sensor(760)
+        self.draw_sensor(100, 'X1')
+        self.draw_sensor(320, 'X2')
+        self.draw_sensor(540, 'X3')
+        self.draw_sensor(760, 'X4')
 
-    def draw_sensor(self, position):
+    def draw_sensor(self, position, text):
         self.sensor = QWidget(self)
         self.sensor.setStyleSheet("background-color:red;border-radius:20px;")
         self.sensor.resize(40, 40)
         self.sensor.move(position, 505)
+        self.name = QLabel(self)
+        self.name.setText(text)
+        self.name.move(position + 10, 510)
 
     def draw_floor(self):
         self.floor = QWidget(self)
@@ -93,8 +96,8 @@ class Window(QWidget):
             pass
     
         
-
 app = QApplication(sys.argv)
+app.setStyleSheet("QLabel{font-size: 14pt;}")
 window = Window()
 window.show()
 sys.exit(app.exec())
