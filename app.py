@@ -22,14 +22,22 @@ class Window(QWidget):
         self.left_button()
         self.go_button()
         self.draw_floor()
-        
+        self.draw_sensor(100)
+        self.draw_sensor(320)
+        self.draw_sensor(540)
+        self.draw_sensor(760)
+
+    def draw_sensor(self, position):
+        self.sensor = QWidget(self)
+        self.sensor.setStyleSheet("background-color:red;border-radius:20px;")
+        self.sensor.resize(40, 40)
+        self.sensor.move(position, 505)
 
     def draw_floor(self):
         self.floor = QWidget(self)
-        self.floor.setStyleSheet("background-color:black;border-radius:15px;")
+        self.floor.setStyleSheet("background-color:black;")
         self.floor.resize(700, 5)
         self.floor.move(100, 500)
-
 
     def go_button(self):
         self.button = QPushButton("GO!", self)
